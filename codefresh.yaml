@@ -21,11 +21,8 @@ steps:
       - terraform plan
   confirm apply:
     type: pending-approval
-    title: confirm apply 
-    timeout:
-    duration: 2
-    finalState: approved
-    timeUnit: minutes
+    title: confirm apply
+    timeout: minutes
     when:
       branch:
         only: [ main ]
