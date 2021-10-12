@@ -1,7 +1,9 @@
 version: '1.0'
 stages:
   - checkout   
-  - deploy
+  - plan
+  - confirm apply
+  - apply
 steps:
   main_clone:
     title: Cloning main repository...
@@ -13,8 +15,24 @@ steps:
   DeployWithTerraform:
     image: hashicorp/terraform:1.0.8
     title: Deploying Terraform plan
-    stage: deploy
+    stage: plan
     commands:
       - terraform init
       - terraform plan
-      - terraform apply
+  confirm apply:
+    type: pending-approval
+    title: confirm apply 
+    timeout:
+    duration: 2
+    finalState: approved
+    timeUnit: minutes
+    when:
+      branch:
+        only: [ main ]
+  Terraform apply:
+    image: hashicorp/terraform:1.0.8
+    title: Deploying Terraform apply
+    stage: apply
+    commands:
+      - terraform apply --auto-approve
+      
