@@ -1,0 +1,20 @@
+version: '1.0'
+stages:
+  - checkout   
+  - deploy
+steps:
+  main_clone:
+    title: Cloning main repository...
+    stage: checkout
+    type: git-clone
+    repo: 'rajhansh1994/anz_ec2'
+    revision: main
+    git: github      
+  DeployWithTerraform:
+    image: hashicorp/terraform:1.0.8
+    title: Deploying Terraform plan
+    stage: deploy
+    commands:
+      - terraform init
+      - terraform plan
+      - terraform apply --auto-approve
