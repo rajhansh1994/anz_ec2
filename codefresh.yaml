@@ -22,10 +22,6 @@ steps:
   confirm apply:
     type: pending-approval
     title: confirm apply
-    timeout: minutes
-    when:
-      branch:
-        only: [ main ]
   Terraform apply:
     image: hashicorp/terraform:1.0.8
     title: Deploying Terraform apply
