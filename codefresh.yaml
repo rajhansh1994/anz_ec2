@@ -19,13 +19,5 @@ steps:
     commands:
       - terraform init
       - terraform plan
-  confirm apply:
-    type: pending-approval
-    title: confirm apply
-  Terraform apply:
-    image: hashicorp/terraform:1.0.8
-    title: Deploying Terraform apply
-    stage: apply
-    commands:
       - terraform apply --auto-approve
       
